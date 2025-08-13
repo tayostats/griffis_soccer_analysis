@@ -28,7 +28,10 @@ def scrape_fbref_t5_leagues_players(season):
 
     # This section creates the programs that gather data from FBRef.com... Data is from FBRef and Opta
     def _get_table(soup):
-        return soup.find_all('table')[0]
+        tables = soup.find_all('table')
+        if not tables:
+            raise ValueError("No table found in the HTML. The page structure may have changed or the request failed.")
+        return tables[0]
 
     def _get_opp_table(soup):
         return soup.find_all('table')[1]
